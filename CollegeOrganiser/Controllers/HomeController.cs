@@ -1,4 +1,6 @@
-﻿using CollegeOrganiser.Models;
+﻿using CollegeOrganiser.Data;
+using CollegeOrganiser.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,15 +14,23 @@ namespace CollegeOrganiser.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly ApplicationDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+                                UserManager<IdentityUser> userManager,
+                                ApplicationDbContext dbContext)
         {
             _logger = logger;
+            _userManager = userManager;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var users = _userManager.Users.ToList();
+
+            return View(users);
         }
 
         public IActionResult Privacy()
