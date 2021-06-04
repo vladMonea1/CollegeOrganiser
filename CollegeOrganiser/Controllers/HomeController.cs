@@ -1,5 +1,6 @@
 ﻿using CollegeOrganiser.Data;
 using CollegeOrganiser.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,10 +33,16 @@ namespace CollegeOrganiser.Controllers
 
             return View(users);
         }
-
+      
         public IActionResult Privacy()
         {
-            return View();
+            if(User.IsInRole("Profesor"))
+            {
+                return View();
+                
+            }
+            else
+            return LocalRedirect("/Identity/Account/AccessDenied");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
