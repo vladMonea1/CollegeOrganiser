@@ -36,7 +36,7 @@ namespace CollegeOrganiser.Controllers
       
         public IActionResult Privacy()
         {
-            if(User.IsInRole("Profesor"))
+            if(User.IsInRole("Profesor "))
             {
                 return View();
                 
