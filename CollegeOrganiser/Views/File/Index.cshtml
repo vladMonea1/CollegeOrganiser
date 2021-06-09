@@ -3,20 +3,23 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h4>Upload Teme</h4>
-<hr />
+    
+<h4>Temele tale</h4>
+
 @if (ViewBag.Message != null)
 {
     <div class="alert alert-success alert-dismissible" style="margin-top:20px">
         @ViewBag.Message
     </div>
 }
+@if (User.IsInRole("Profesor"))
+{ 
 <form method="post" enctype="multipart/form-data">
     <input type="file" name="files" multiple required />
-    <input type="text" autocomplete="off" placeholder="Enter File Description" name="description" required />
-    <button class="btn btn-success" type="submit" asp-controller="File" asp-action="UploadToDatabase">Upload to Database</button>
+    <input type="text" autocomplete="off" placeholder="Detalii tema" name="description" required />
+    <button class="btn btn-success" type="submit" asp-controller="File" asp-action="UploadToDatabase">Upload Tema</button>
 </form>
-<hr />
+}
 
 @if (Model.Count == 0)
 {
@@ -24,16 +27,15 @@
 }
 else
 {
-    <caption>List of Files on File System</caption>
-    <table class="table table-striped">
+   
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>File Type</th>
-                <th>Created On</th>
-                <th>Actions</th>
+                <th>Tema nr:</th>
+                <th>Titlul Temei:</th>
+                <th>Detalii Tema:</th>
+                <th>Asignat la data:</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -42,12 +44,14 @@ else
                 <tr>
                     <th>@file.Id</th>
                     <td>@file.Name</td>
-                    <td>@file.Description</td>
-                    <td>@file.FileType</td>
+                    <td>@file.Description</td>                  
                     <td>@file.CreatedOn</td>
                     <td>
                         <a type="button" class="btn btn-primary" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id">Download</a>
+                        @if (User.IsInRole("Profesor"))
+                        {
                         <a type="button" class="btn btn-danger" asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">Delete</a>
+                        }
                     </td>
                 </tr>
             }

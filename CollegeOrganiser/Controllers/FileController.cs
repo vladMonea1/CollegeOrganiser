@@ -8,9 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using CollegeOrganiser.Models;
 using CollegeOrganiser.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CollegeOrganiser.Controllers
 {
+    [Authorize]
     public class FileController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -65,6 +67,7 @@ namespace CollegeOrganiser.Controllers
             return File(file.Data, file.FileType, file.Name + file.Extension);
         }
 
+      
         public async Task<IActionResult> DeleteFileFromDatabase(int id)
         {
             var file = await _context.Files.Where(x => x.Id == id).FirstOrDefaultAsync();
