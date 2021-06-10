@@ -33,7 +33,13 @@ namespace CollegeOrganiser.Controllers
             return View(fileuploadViewModel);
         }
 
-        [HttpPost]
+        public async Task<IActionResult> DashBoardTeme()
+        {
+            var fileuploadViewModel = await LoadAllFiles();
+            ViewBag.Message = TempData["Message"];
+            return View(fileuploadViewModel);
+        }
+            [HttpPost]
         public async Task<IActionResult> UploadToDatabase(List<IFormFile> files, string description)
         {
             foreach (var file in files)

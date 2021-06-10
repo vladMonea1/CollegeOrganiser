@@ -1,0 +1,60 @@
+﻿@model CollegeOrganiser.Models.AnuntModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="TitluAnunt">CREEAZA ANUNT</h1>
+
+<hr />
+<div  class="row">
+    <div  class="col-md-4">
+        <form asp-action="CreateAnnouncement" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+
+            <label asp-for="CreatedOn" class="control-label">Data de astazi</label>
+            <input id="datepicker" asp-for="CreatedOn" class="form-control" />
+            <span asp-validation-for="CreatedOn" class="text-danger"></span>
+        </div>*@
+
+
+            <div class="form-group">
+                <label asp-for="CreatedOn">Data de astazi</label>
+                <input type="date" asp-for="CreatedOn" max="3000-12-31"
+                       min="1000-01-01" class="form-control">
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Titlul Anuntului</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Anuntul</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label">Prof</label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

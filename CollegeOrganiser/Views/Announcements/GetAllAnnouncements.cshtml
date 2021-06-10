@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CollegeOrganiser.Models.AnuntModel>
+
+@{
+    ViewData["Title"] = "GetAllAnnouncements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="TitluAnunt">Anunturi</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            
+                Creat la data:
+            </th>
+            <th>
+            
+                Titlul anuntului:
+            </th>
+            <th>
+
+                Anuntul:
+            </th>
+            <th>
+              
+                Autor:
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+
+            @if (User.IsInRole("Profesor"))
+            {
+                <td>
+                    <a asp-action="DeleteAnnouncement" asp-route-id="@item.Id">Delete</a>
+                </td>
+            }
+            </tr>   
+}
+    </tbody>
+</table>

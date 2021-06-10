@@ -1,0 +1,39 @@
+﻿.TitluAnunt {
+    color: #111;
+    font-family:sans-serif;
+    font-size: 40px;
+    word-spacing:15px;
+    letter-spacing:3px;
+    line-height: 1;
+    text-align: center;
+}
+
+#MeniuAnunt
+{
+background-color:red;
+
+}
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    color: white;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 5px 11px;
+    cursor: pointer;
+    text-align: center;
+    transition-duration: 0.1s;
+    background-color: #3078fa;
+    border-radius: 5px;
+}
+    .custom-file-upload:hover {
+        background-color: #2459b7;
+        color: white;
+    }
+    .custom-file-upload:active {
+        background-color: #103e8f;
+        color: white;
+        padding: 8px 14px;
+    }

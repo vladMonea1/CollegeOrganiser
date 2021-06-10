@@ -18,6 +18,7 @@ namespace CollegeOrganiser.Data
             
         }
         public DbSet<FileModel> Files { get; set; }
+        public DbSet<CollegeOrganiser.Models.AnuntModel> AnuntModel { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -27,5 +28,7 @@ namespace CollegeOrganiser.Data
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
         }
+        
+
     }
 }
