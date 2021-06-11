@@ -57,7 +57,7 @@ namespace CollegeOrganiser.Controllers
            
             return RedirectToAction("GetUsers");
         }
-        
+      
 
         public IActionResult Privacy()
         {

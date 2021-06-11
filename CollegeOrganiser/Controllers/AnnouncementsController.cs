@@ -2,6 +2,7 @@
 using CollegeOrganiser.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,23 @@ namespace CollegeOrganiser.Controllers
           await  _context.SaveChangesAsync();
             return RedirectToAction("GetAllAnnouncements");
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> ShowSearchResults(String SearchPhrase)
+        //{
+            
+        //    //return View("GetAnnouncementById", await _context.AnuntModel.Where(j => j.Author.Contains(SearchPhrase)).ToListAsync());
+           
+        //}
+        [HttpGet]
+        public async Task<IActionResult>SearchAnnouncements(String SearchPhrase)
+        {
+            var rezultatCautare= await _context.AnuntModel.Where(j => j.Author.Contains(SearchPhrase)).ToListAsync();
+         
+            return View(rezultatCautare);
+            
+        }
+
 
         public async Task<IActionResult> DeleteAnnouncement( int Id)
         {
