@@ -1,0 +1,36 @@
+﻿@model List<CoursesForUser>
+<h1 class="TitluAnunt">MY COURSES</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID Curs
+            </th>
+            <th>
+                TITULAR CURS
+               
+            </th>
+            <th>
+               NUME CURS
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.CoursesAssigned.CourseOwner
+                </td>
+                <td>
+                    @item.CoursesAssigned.CourseName
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

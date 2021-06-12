@@ -8,6 +8,7 @@ namespace CollegeOrganiser.Models
 {
     public class ApplicationUser: IdentityUser
     {
+        
         //just in case you want to add more data
     }
 }

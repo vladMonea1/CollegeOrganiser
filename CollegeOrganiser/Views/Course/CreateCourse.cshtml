@@ -1,0 +1,17 @@
+﻿<h1>Create Course</h1>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Course" asp-action="CreateCourse" method="post">
+            <div class="form-group">
+                <label for="NumeProfesor">Nume Profesor</label>
+                <input type="text" class="form-control" id="NumeProfesor" name="NumeProfesor">
+            </div>
+            <div class="form-group">
+                <label for="NumeCurs">Nume Curs</label>
+                <input type="text" class="form-control" id="NumeCurs" name="NumeCurs">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Create</button>
+        </form>
+    </div>
+</div>
+

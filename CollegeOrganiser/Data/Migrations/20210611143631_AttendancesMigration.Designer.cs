@@ -4,14 +4,16 @@ using CollegeOrganiser.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CollegeOrganiser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210611143631_AttendancesMigration")]
+    partial class AttendancesMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,6 +123,12 @@ namespace CollegeOrganiser.Data.Migrations
                     b.Property<int?>("CourseAttendedId")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdCourseHeld")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdStudent")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -151,31 +159,6 @@ namespace CollegeOrganiser.Data.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("CollegeOrganiser.Models.CoursesForUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("AssignedToCourse")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("CoursesAssignedId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoursesAssignedId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CoursesForUsers");
-                });
-
             modelBuilder.Entity("CollegeOrganiser.Models.CoursesHeld", b =>
                 {
                     b.Property<int>("Id")
@@ -183,7 +166,7 @@ namespace CollegeOrganiser.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CourseId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateHeld")
@@ -191,7 +174,8 @@ namespace CollegeOrganiser.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("CourseId")
+                        .IsUnique();
 
                     b.ToTable("CoursesHeld");
                 });
@@ -373,25 +357,13 @@ namespace CollegeOrganiser.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("CollegeOrganiser.Models.CoursesForUser", b =>
-                {
-                    b.HasOne("CollegeOrganiser.Models.Courses", "CoursesAssigned")
-                        .WithMany()
-                        .HasForeignKey("CoursesAssignedId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("CollegeOrganiser.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("CollegeOrganiser.Models.CoursesHeld", b =>
                 {
                     b.HasOne("CollegeOrganiser.Models.Courses", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithOne("CourseHeld")
+                        .HasForeignKey("CollegeOrganiser.Models.CoursesHeld", "CourseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

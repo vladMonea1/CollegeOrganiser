@@ -37,3 +37,14 @@ input[type="file"] {
         color: white;
         padding: 8px 14px;
     }
+.btnSearch {
+     
+    width: 20%;
+    padding: 10px;
+    background: #ddcc;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}

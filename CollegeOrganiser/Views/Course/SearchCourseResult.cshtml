@@ -1,0 +1,42 @@
+﻿@model List<Courses>
+
+@{
+    ViewData["Title"] = "SEARCHRESULTS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID Curs
+            </th>
+            <th>
+                Nume Curs
+            </th>
+            <th>
+                Profesor
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.CourseName
+                </td>
+                <td>
+                    @item.CourseOwner
+
+                </td>
+                <td>
+                    <a class="float-left btn btn-info" asp-controller="Course" asp-action="JoinCourse" asp-route-id="@item.Id">Join</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

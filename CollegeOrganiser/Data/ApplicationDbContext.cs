@@ -19,6 +19,11 @@ namespace CollegeOrganiser.Data
         }
         public DbSet<FileModel> Files { get; set; }
         public DbSet<CollegeOrganiser.Models.AnuntModel> AnuntModel { get; set; }
+
+        public DbSet<Courses> Courses { get; set; }
+        public DbSet<CoursesHeld> CoursesHeld { get; set; }
+        public DbSet<CourseAttendances> CourseAttendances{ get; set; }
+        public DbSet<CoursesForUser> CoursesForUsers{ get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
