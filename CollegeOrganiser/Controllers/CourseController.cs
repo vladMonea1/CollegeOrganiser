@@ -1,4 +1,4 @@
-﻿using CollegeOrganiser.Data;
+﻿   using CollegeOrganiser.Data;
 using CollegeOrganiser.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

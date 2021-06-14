@@ -1,11 +1,124 @@
-﻿.TitluAnunt {
-    color: #111;
-    font-family:sans-serif;
+﻿
+#bodyStyle {
+    background-color: #7ad3fb;
+
+}
+
+#logInHR {
+    background-color: white;
+    border: thin 1px white;
+    /*box-shadow: 0px 0px 1px 1px #3b3e3e;*/
+}
+
+#logInContainer {
+    background-color: #364968;
+    border: 2px thin white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 10px;
+}
+#logInForm {
+    font-family: sans-serif;
+    background-color: #20b4cf;
+    letter-spacing:4px;
+    font-size:20px;
+    color: black;
+    border: thin;
+    text-align: center;
+    padding-bottom: 1px;
+    transition-duration: 1.5s;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+#logInForm:hover
+{
+        
+        transition-duration: 0.5s;
+         padding-top:40px;
+         padding-bottom:40px;
+          
+         
+}
+
+
+#logInLabels {
+    color: white;
+    font-weight: 100;
+}
+
+#logInBtn {
+    background-color: #364968;
+    width: 100px;
+    height: 50px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 400;
+    transition-duration: 0.5s;
+    border: none;
+    border-radius: 5px;
+}
+
+
+ #logInBtn:hover 
+{
+        transition-duration: 0.3s;
+        width: 110px;
+        height: 60px;
+        box-shadow: rgb(65 69 74) 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
+}
+
+#logInInputs
+{
+    width:69%;
+    margin-left: 15%;
+   
+}
+#logInInputs:hover{
+         color:white;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        padding:0px;
+}
+
+
+#navBarModded{
+    background-color: #364968;
+    color:white;
+}
+#navBarItems {
+    color: white;
+    padding: 5px;
+    border-radius: 2px;
+    transition-duration: 1.5s;
+    background-color: #20b4cf;
+}
+
+    #navBarItems:hover {
+        padding: 10px;
+        margin-top: 15px;
+        color: #364968;
+        transition-duration: 0.5s;
+    }
+
+
+
+
+.titleHr {
+    width: 100%;
+    background-color: white;
+}
+
+.TitluAnunt {
+    padding-top: 1.5%;
+    color: black;
+    background-color: #20b4cf;
+    text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
+    font-family: sans-serif;
     font-size: 40px;
-    word-spacing:15px;
-    letter-spacing:3px;
+    word-spacing: 15px;
+    letter-spacing: 3px;
     line-height: 1;
     text-align: center;
+    font-size: 80px;
+ 
+   
 }
 
 #MeniuAnunt
@@ -13,9 +126,9 @@
 background-color:red;
 
 }
-input[type="file"] {
+/*input[type="file"] {
     display: none;
-}
+}*/
 
 .custom-file-upload {
     color: white;
