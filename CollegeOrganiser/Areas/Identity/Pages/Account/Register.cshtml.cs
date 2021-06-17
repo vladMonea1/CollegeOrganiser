@@ -49,10 +49,15 @@ namespace CollegeOrganiser.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+          
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "NumeUtilizator")]
+            public string NumeUtilizator { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -78,7 +83,7 @@ namespace CollegeOrganiser.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true };
+                var user = new ApplicationUser {  UserName = Input.Email, Email = Input.Email, NumeUtilizator = Input.NumeUtilizator, EmailConfirmed = true };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 
               //  await _userManager.AddToRoleAsync(user, "Student");
