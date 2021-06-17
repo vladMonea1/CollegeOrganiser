@@ -62,11 +62,11 @@ namespace CollegeOrganiser.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCourse(string NumeProfesor,string NumeCurs)
+        public async Task<IActionResult> CreateCourse(/*string NumeProfesor ,*/string NumeCurs)
         {
             var course = new Courses()
             {
-                CourseOwner = NumeProfesor,
+                CourseOwner = _userManager.GetUserAsync(User).Result.NumeUtilizator,
                 CourseName = NumeCurs
             };
 

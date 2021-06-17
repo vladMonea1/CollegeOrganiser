@@ -1,68 +1,51 @@
-﻿@model IEnumerable<CollegeOrganiser.Models.AnuntModel>
-
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<CollegeOrganiser.Models.AnuntModel>
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "GetAllAnnouncements";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1 class="TitluAnunt pb-5">Anunturi</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-
-                Creat la data:
-            </th>
-            <th>
-
-                Titlul anuntului:
-            </th>
-            <th>
-
-                Anuntul:
-            </th>
-            <th>
-
-                Autor:
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="pb-5"></div>
+<div class="row">
+    <div class="row  col-9  ">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
 
-                @if (User.IsInRole("Profesor"))
-                {
-                    <td>
-                        <a asp-action="DeleteAnnouncement" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                }
-            </tr>
+            <div class="col-8 bg-warning mb-3 ">
+                <div class="container-fluid  mb-3  d-inline-block">
+                    <div class="card-header titluAnunturi">
+                        <h2>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </h2>
+
+                    </div>
+                    <div class="card-body bodyAnunt container-fluid ">
+                        <blockquote class=" blockquote mb-0  ">
+                            <p> @Html.DisplayFor(modelItem => item.Description)</p>
+                           @if(UserManager.GetUserAsync(User).Result.NumeUtilizator==item.Author )
+                          {
+                            <a asp-action="DeleteAnnouncement" asp-route-id="@item.Id">Delete</a>
+                           }
+
+                            <footer class="blockquote-footer ">@Html.DisplayFor(modelItem => item.CreatedOn.DateTime) <cite title="Source Title" style="font-weight:bold;">@Html.DisplayFor(modelItem => item.Author) </cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+
 
         }
-    </tbody>
-</table>
+    </div>
+    <div class="container col-1">
 
-<h4>Search for a Joke</h4>
-<hr />
+    </div>
 
-<div class="row">
-    <div class="col-md-4">
+    <div class="container col-2  ">
+        <h4>Cauta un anunt</h4>
+
         <form asp-action="SearchAnnouncements" method="get">
 
             <div class="form-group">
@@ -73,5 +56,10 @@
                 <input type="submit" value="Search" class="btn btn-primary" />
             </div>
         </form>
+
     </div>
+
+
+
+
 </div>

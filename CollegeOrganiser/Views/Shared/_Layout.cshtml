@@ -16,7 +16,7 @@
 </head>
 <body id="bodyStyle">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light   border-bottom box-shadow mb-3" id="navBarModded" >
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3" id="navBarModded" >
             <div class="container-fluid" >
                 <a class="navbar-brand" id="navBarItems" asp-area="" asp-controller="Home" asp-action="Index">HOME</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -25,10 +25,10 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul  class="navbar-nav flex-grow-1" >
+                    <ul class="navbar-nav flex-grow-1">
 
-                        <li  class="nav-item " >
-                            <a   class="nav-link " id="navBarItems" asp-area="" asp-controller="Home" asp-action="Privacy">PRIVACY</a>
+                        <li class="nav-item ">
+                            <a class="nav-link " id="navBarItems" asp-area="" asp-controller="Home" asp-action="Privacy">PRIVACY</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
@@ -39,7 +39,7 @@
                         @if (User.IsInRole("Profesor") || User.IsInRole("Student"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link  "  id="navBarItems" asp-area="" asp-controller="File" asp-action="DashBoardTeme">DASHBOARD TEME</a>
+                                <a class="nav-link  " id="navBarItems" asp-area="" asp-controller="File" asp-action="DashBoardTeme">DASHBOARD TEME</a>
                             </li>
 
                         }
@@ -50,22 +50,26 @@
                             </li>
                         }
 
-                           <li class="nav-item">
+                        @if (User.IsInRole("Profesor") || User.IsInRole("Student"))
+                        {
+                            <li class="nav-item">
                                 <a class="nav-link  " id="navBarItems" asp-area="" asp-controller="Course" asp-action="Index">CURSURI</a>
-                           </li>
-                        
+                            </li>
+
+                        }
+
                         @if (User.IsInRole("Profesor"))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navBarItems" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     MENIU PROFESR
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Announcements" asp-action="AnnouncementCreation">ANUNT NOU</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="File" asp-action="Index">TEMA NOUA</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Course" asp-action="CreateCourse">CURS NOU</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" >
+                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown"  asp-area="" asp-controller="Announcements" asp-action="AnnouncementCreation">ANUNT NOU</a>
+                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="File" asp-action="Index">TEMA NOUA</a>
+                                    <a class="dropdown-item container-fluid col-10"id="navBarItemsDropDown"  asp-area="" asp-controller="Course" asp-action="CreateCourse">CURS NOU</a>
+                                    @*<div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"></a>*@
                                 </div>
                             </li>
                         }

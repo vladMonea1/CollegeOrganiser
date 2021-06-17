@@ -86,11 +86,11 @@ namespace CollegeOrganiser.Areas.Identity.Pages.Account
                 var user = new ApplicationUser {  UserName = Input.Email, Email = Input.Email, NumeUtilizator = Input.NumeUtilizator, EmailConfirmed = true };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 
-              //  await _userManager.AddToRoleAsync(user, "Student");
+             
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                        await _userManager.AddToRoleAsync(user, "Student");
+                        await _userManager.AddToRoleAsync(user, "Standard");
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                    
@@ -101,7 +101,7 @@ namespace CollegeOrganiser.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+           
             return Page();
         }
     }

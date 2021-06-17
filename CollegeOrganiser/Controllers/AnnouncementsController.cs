@@ -14,10 +14,11 @@ namespace CollegeOrganiser.Controllers
     public class AnnouncementsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        
-        public AnnouncementsController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public AnnouncementsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public IActionResult AnnouncementCreation()
         {
@@ -34,14 +35,17 @@ namespace CollegeOrganiser.Controllers
             return View(anuntList);
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAnnouncement(DateTimeOffset CreatedOn, string Title, string Description, string Author)
+        public async Task<IActionResult> CreateAnnouncement(DateTime CreatedOn, string Title, string Description/*, string Author*/)
         {
+            CreatedOn = DateTime.Now;
+            
+
             var anuntNou = new AnuntModel
             {
                 CreatedOn = CreatedOn,
                 Title = Title,
                 Description= Description,
-                Author= Author
+                Author= _userManager.GetUserAsync(User).Result.NumeUtilizator
             };
 
 
@@ -50,13 +54,7 @@ namespace CollegeOrganiser.Controllers
             return RedirectToAction("GetAllAnnouncements");
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> ShowSearchResults(String SearchPhrase)
-        //{
-            
-        //    //return View("GetAnnouncementById", await _context.AnuntModel.Where(j => j.Author.Contains(SearchPhrase)).ToListAsync());
-           
-        //}
+       
         [HttpGet]
         public async Task<IActionResult>SearchAnnouncements(String SearchPhrase)
         {
@@ -69,19 +67,19 @@ namespace CollegeOrganiser.Controllers
 
         public async Task<IActionResult> DeleteAnnouncement( int Id)
         {
-
+           
             var postToDelete = _context.AnuntModel.FirstOrDefault(p => p.Id == Id);
+
+            if(_userManager.GetUserAsync(User).Result.NumeUtilizator==postToDelete.Author)
+            {
             var anunt = _context.AnuntModel.Remove(postToDelete);
 
             _context.SaveChanges();
-
+            }
             return RedirectToAction("GetAllAnnouncements");
         }
 
-        //get announcement by 
-        //get all announcements
-
-        //post ann
+       
 
     
     }

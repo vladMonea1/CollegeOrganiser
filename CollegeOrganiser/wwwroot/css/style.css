@@ -10,6 +10,10 @@
     /*box-shadow: 0px 0px 1px 1px #3b3e3e;*/
 }
 
+
+/* STIL LogIn  */
+
+
 #logInContainer {
     background-color: #364968;
     border: 2px thin white;
@@ -37,16 +41,14 @@
           
          
 }
-
-
-#logInLabels {
+#logInLabels 
+{
     color: white;
     font-weight: 100;
 }
-
 #logInBtn {
     background-color: #364968;
-    width: 100px;
+     width:110px;
     height: 50px;
     color: white;
     font-family: sans-serif;
@@ -55,16 +57,13 @@
     border: none;
     border-radius: 5px;
 }
-
-
- #logInBtn:hover 
+#logInBtn:hover 
 {
         transition-duration: 0.3s;
         width: 110px;
         height: 60px;
         box-shadow: rgb(65 69 74) 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
 }
-
 #logInInputs
 {
     width:69%;
@@ -72,38 +71,111 @@
    
 }
 #logInInputs:hover{
-         color:white;
+        
         box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
         padding:0px;
 }
+/* STIL Log-In  */
 
+
+/* STIL Meniu  */
 
 #navBarModded{
     background-color: #364968;
+     
     color:white;
 }
 #navBarItems {
     color: white;
+  
     padding: 5px;
     border-radius: 2px;
     transition-duration: 1.5s;
     background-color: #20b4cf;
-}
 
-    #navBarItems:hover {
-        padding: 10px;
+}
+#navBarItems:hover {
+        border: 1px solid #20b4cf;
         margin-top: 15px;
-        color: #364968;
+        color: white;
+        padding-top: 10px;
+        box-shadow: rgb(36 38 155) 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
         transition-duration: 0.5s;
     }
 
+/* STIL Meniu  */
 
 
 
-.titleHr {
-    width: 100%;
-    background-color: white;
+
+
+/* STIL DropDown  */
+#navBarItemsDropDown {
+    color: white;
+    border:white 1px solid;
+    border-radius: 2px;
+    transition-duration: 1.5s;
+    background-color: #20b4cf;
 }
+#navBarItemsDropDown:hover {
+        border: 1px solid #20b4cf;
+        margin-top: 15px;
+        color: white;
+        padding-top: 10px;
+        box-shadow: rgb(36 38 155) 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
+        transition-duration: 0.5s;
+    }
+
+/* STIL DropDown  */
+
+
+
+
+/* STIL LogOuts  */
+
+#logOutBtn {
+    color: white;
+    padding: 5px;
+    border-radius: 2px;
+    transition-duration: 0.5s;
+    background-color: #20b4cf;
+    margin-right: 50px;
+}
+#logOutBtn:hover {
+        transition-duration: 0.3s;
+        
+        box-shadow: rgb(36 38 155) 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
+    }
+
+/* STIL LogOuts  */
+
+
+
+
+
+/* STIL TITLURI  */
+    .titleHr {
+        width: 100%;
+        background-color: white;
+    }
+
+/* STIL TITLURI  */
+
+
+
+
+    /* STIL ANUNTURI  */
+.titluAnunturi {
+    background-color: #364968;
+    color: white;
+
+}
+.bodyAnunt {
+    background-color: #20b4cf;
+}
+
+
+/* STIL ANUNTURI  */
 
 .TitluAnunt {
     padding-top: 1.5%;
@@ -117,15 +189,8 @@
     line-height: 1;
     text-align: center;
     font-size: 80px;
+}
  
-   
-}
-
-#MeniuAnunt
-{
-background-color:red;
-
-}
 /*input[type="file"] {
     display: none;
 }*/
