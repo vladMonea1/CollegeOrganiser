@@ -18,10 +18,10 @@ else
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Tema nr:</th>
-                <th>Titlul Temei:</th>
-                <th>Detalii Tema:</th>
-                <th>Asignat la data:</th>
+                <th>Autorul:</th>
+                <th>Titlul Documentului:</th>
+                <th>Detalii Document:</th>
+                <th>Adaugat la data:</th>
                 <th></th>
             </tr>
         </thead>
@@ -29,7 +29,7 @@ else
             @foreach (var file in Model)
             {
                 <tr>
-                    <th>@file.Id</th>
+                    <td>@file.UploadedBy</td>
                     <td>@file.Name</td>
                     <td>@file.Description</td>
                     <td>@file.CreatedOn</td>

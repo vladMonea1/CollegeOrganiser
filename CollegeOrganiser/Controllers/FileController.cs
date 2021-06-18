@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CollegeOrganiser.Models;
 using CollegeOrganiser.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CollegeOrganiser.Controllers
 {
@@ -16,9 +17,11 @@ namespace CollegeOrganiser.Controllers
     public class FileController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public FileController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public FileController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         private async Task<List<FileModel>> LoadAllFiles()
@@ -33,7 +36,7 @@ namespace CollegeOrganiser.Controllers
             return View(fileuploadViewModel);
         }
 
-        public async Task<IActionResult> DashBoardTeme()
+        public async Task<IActionResult> DashBoardDocumente()
         {
             var fileuploadViewModel = await LoadAllFiles();
             ViewBag.Message = TempData["Message"];
@@ -42,6 +45,7 @@ namespace CollegeOrganiser.Controllers
             [HttpPost]
         public async Task<IActionResult> UploadToDatabase(List<IFormFile> files, string description)
         {
+             
             foreach (var file in files)
             {
                 var fileName = Path.GetFileNameWithoutExtension(file.FileName);
@@ -52,8 +56,10 @@ namespace CollegeOrganiser.Controllers
                     FileType = file.ContentType,
                     Extension = extension,
                     Name = fileName,
-                    Description = description
-                };
+                    Description = description,
+                    UploadedBy= _userManager.GetUserAsync(User).Result.NumeUtilizator
+
+            };
                 using (var dataStream = new MemoryStream())
                 {
                     await file.CopyToAsync(dataStream);

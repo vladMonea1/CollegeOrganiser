@@ -16,14 +16,14 @@
 @if (User.IsInRole("Profesor"))
 {
 <form method="post" enctype="multipart/form-data">
-    @*<input  class="btn btn-danger" type="file" name="files" multiple required />*@
+
 
 
     <label for="file-upload" class="custom-file-upload">
-       ALEGE FISIER
+        ALEGE FISIER
     </label>
-    <input id="file-upload" type="file" />
-
+    <input id="file-upload" type="file" name="files" multiple required />
+    
 
     <input type="text" autocomplete="off" placeholder="Detalii tema" name="description" required />
     <button class="btn btn-success" type="submit" asp-controller="File" asp-action="UploadToDatabase">UPLOAD</button>
@@ -41,6 +41,7 @@ else
         <thead>
             <tr>
                 <th>Tema nr:</th>
+                <th>Autor</th>
                 <th>Titlul Temei:</th>
                 <th>Detalii Tema:</th>
                 <th>Asignat la data:</th>
@@ -50,19 +51,21 @@ else
         <tbody>
             @foreach (var file in Model)
             {
-                <tr>
-                    <th>@file.Id</th>
-                    <td>@file.Name</td>
-                    <td>@file.Description</td>
-                    <td>@file.CreatedOn</td>
-                    <td>
-                        <a type="button" class="btn btn-primary" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id">DOWNLOAD</a>
-                        @if (User.IsInRole("Profesor"))
-                        {
-                            <a type="button" class="btn btn-danger" asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">DELETE</a>
-                        }
-                    </td>
-                </tr>
+            <tr>
+
+                <th>@file.Id</th>
+                <th>@file.UploadedBy</th>
+                <td>@file.Name</td>
+                <td>@file.Description</td>
+                <td>@file.CreatedOn</td>
+                <td>
+                    <a type="button" class="btn btn-primary" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id">DOWNLOAD</a>
+                    @if (User.IsInRole("Profesor"))
+                    {
+                        <a type="button" class="btn btn-danger" asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">DELETE</a>
+                    }
+                </td>
+            </tr>
             }
         </tbody>
     </table>

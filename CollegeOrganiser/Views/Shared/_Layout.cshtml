@@ -39,7 +39,7 @@
                         @if (User.IsInRole("Profesor") || User.IsInRole("Student"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link  " id="navBarItems" asp-area="" asp-controller="File" asp-action="DashBoardTeme">DASHBOARD TEME</a>
+                                <a class="nav-link  " id="navBarItems" asp-area="" asp-controller="File" asp-action="DashBoardDocumente">DASHBOARD DOCUMENTE</a>
                             </li>
 
                         }
@@ -64,9 +64,9 @@
                                 <a class="nav-link dropdown-toggle" id="navBarItems" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     MENIU PROFESR
                                 </a>
-                                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" >
+                                <div class="dropdown-menu dropDownProf" id="dropDownProf" aria-labelledby="navbarDropdown" >
                                     <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown"  asp-area="" asp-controller="Announcements" asp-action="AnnouncementCreation">ANUNT NOU</a>
-                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="File" asp-action="Index">TEMA NOUA</a>
+                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="File" asp-action="Index">DOCUMENT NOU</a>
                                     <a class="dropdown-item container-fluid col-10"id="navBarItemsDropDown"  asp-area="" asp-controller="Course" asp-action="CreateCourse">CURS NOU</a>
                                     @*<div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#"></a>*@
@@ -84,7 +84,7 @@
         </main>                                            
     </div>
                             
-    <footer class="border-top footer text-muted">
+    <footer class="  footer text-white footerModed ">
         <div class="container">
             &copy; 2021 - CollegeOrganiser - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

@@ -34,6 +34,7 @@ namespace CollegeOrganiser.Controllers
 
             return View(anuntList);
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateAnnouncement(DateTime CreatedOn, string Title, string Description/*, string Author*/)
         {
@@ -63,6 +64,7 @@ namespace CollegeOrganiser.Controllers
             return View(rezultatCautare);
             
         }
+
 
 
         public async Task<IActionResult> DeleteAnnouncement( int Id)

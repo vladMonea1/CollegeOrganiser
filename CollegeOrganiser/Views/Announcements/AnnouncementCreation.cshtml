@@ -5,12 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="TitluAnunt">CREEAZA ANUNT</h1>
+<h1 class="TitluAnunt pb-3">CREEAZA ANUNT</h1>
 
 <hr />
+
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateAnnouncement" method="post">
+    </div>
+    <div class="col-md-4 pt-3 pb-4" id="logInContainer">
+        <form asp-action="CreateAnnouncement" id="logInForm" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
 
@@ -21,27 +24,28 @@
 
 
             <div class="form-group">
-                <label asp-for="CreatedOn">Data de astazi</label>
+                <label asp-for="CreatedOn">DATA</label>
                 <input type="date" asp-for="CreatedOn" max="3000-12-31"
-                       min="1000-01-01" class="form-control">
+                       min="1000-01-01" class="form-control" id="logInInputs">
             </div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label">Titlul Anuntului</label>
-                <input asp-for="Title" class="form-control" />
+                <label asp-for="Title" class="control-label">TITLU</label>
+                <input asp-for="Title" class="form-control" id="logInInputs" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label">Anuntul</label>
-                <input asp-for="Description" class="form-control" />
+                <label asp-for="Description" class="control-label">MESAJ</label>
+                <input asp-for="Description" class="form-control" id="logInInputs" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="Author" class="control-label">Prof</label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="Author" class="control-label">Prof</label>
+                    <input asp-for="Author" class="form-control" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+               
+                <button type="submit" value="Create" class="btnSubmit" >ADD </button>
             </div>
         </form>
     </div>
