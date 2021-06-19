@@ -13,15 +13,16 @@
         {
 
             <div class="col-4">
-                <div class="mb-4 card d-inline-block" style=" width: 18rem;  border: solid 0.5px gray; border-radius:15px; padding: 10px; box-shadow: 5px 10px 8px #888888;">
-                    <img class="card-img-top" src="~/Images/1.jpg" alt="Card image cap">
-                    <div class="card-body bg-warning">
-                        <h5 class="card-title" style="font-weight:bold; text-align:center">@item.CourseName</h5>
-                        <hr style="border:1px solid" />
-                        <p class="card-text">TITULAR CURS:</p>
-                        <p>@item.CourseOwner</p>
-
-                        <a class="float-right btn btn-info" asp-controller="Course" asp-action="JoinCourse" asp-route-id="@item.Id">Join</a>
+                <div class="mb-4 cardCurs card d-inline-block ">
+                    <img class="card-img-top" src="~/Images/c2.png" alt="Card image cap">
+                    <div class="card-body bodyCurs">
+                        <h5 class="card-title courseTitle">@item.CourseName</h5>
+                        <hr style="border:1px solid white" />
+                      
+                            <p class="card-text">TITULAR CURS:</p>
+                            <p class="font-weight-bold">@item.CourseOwner</p>
+                         
+                        <a class="float-right btnJoin btn " asp-controller="Course" asp-action="JoinCourse" asp-route-id="@item.Id">JOIN</a>
                     </div>
                 </div>
 

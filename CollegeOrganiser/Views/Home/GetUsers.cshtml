@@ -5,29 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>GetUsers</h1>
+<h1 class="TitluAnunt pb-3">ADMIN AREA</h1>
+<hr />
 
-@foreach (var user in Model.users)
-{
 <div class="row">
-    <div class="col-5">
-        <h1>@user.user.Email</h1>
-    </div>
-    <div class="col-5">
-        <h1>@user.role</h1>
-    </div>
+    <div class="row">
+        @foreach (var user in Model.users)
+        {
 
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown button
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            @foreach (var role in Model.usersRoles)
-            {
-                <a class="dropdown-item" asp-controller="Home" asp-action="ChangeRole" asp-route-email="@user.user.Email" asp-route-designatedrole="@role">@role</a>
-            }
+            <div class="col-3">
+                <div class="card text-center  mb-3">
+                    <div class="card-header titluAnunturi">USER</div>
+                    <div class="card-body bodyAnunt ">
+                        <p class="card-title">ROL USER: @user.role</p>
+                        <hr />
+                        <p class="card-text">
+                            NUME USER: @user.user.NumeUtilizator
+                        </p>
+                        <hr />
+                        <p class="card-text">
+                            EMAIL: @user.user.Email
+                        </p>
 
-        </div>
+                        <div class="container dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                CHANGE ROLE
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach (var role in Model.usersRoles)
+                                {
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="ChangeRole" asp-route-email="@user.user.Email" asp-route-designatedrole="@role">@role</a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
     </div>
 </div>
-}

@@ -5,36 +5,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="TitluAnunt pb-3">PREZENTELE MELE</h1>
+<hr />
+<div class="row" >
+<div class="row  col-9  ">
+    @foreach (var item in Model)
+    {
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Attended)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Attended)
-            </td>
-            <td>
-                @item.User.Email
-            </td>
-            <td>
+        <div class="card ml-2"  >
+            <div class="card-header titluAnunturi">
                 @item.CourseAttended.Course.CourseName
-            </td>
-            <td>
-                @item.CourseAttended.DateHeld
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </div>
+            <ul class=" list-group list-group-flush ">
+                <li class="list-group-item bodyAnunt "> @item.User.NumeUtilizator</li>
+                <li class="list-group-item bodyAnunt"> @item.CourseAttended.DateHeld</li>
+                <li class="list-group-item bodyAnunt"> @Html.DisplayNameFor(model => model.Attended) @item.Attended </li>
+            </ul>
+        </div>
+
+    }
+    </div>
+    </div>

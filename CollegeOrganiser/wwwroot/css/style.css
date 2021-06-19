@@ -92,6 +92,7 @@
     border-radius: 2px;
     transition-duration: 1.5s;
     background-color: #20b4cf;
+  
 }
     #navBarItems:hover {
         border: 1px solid #20b4cf;
@@ -116,6 +117,8 @@
     border-right: 1px solid white;
     border-left: 1px solid white;
     box-shadow: 0px 0px 0px, white 1px -1px 3px inset;
+   text-align:center;
+   width:190px;
 }
 #navBarItemsDropDown {
     color: white;
@@ -124,6 +127,7 @@
     border-radius: 2px;
     transition-duration: 1.5s;
     background-color: #20b4cf;
+   
 }
     #navBarItemsDropDown:hover {
         border: 1px solid #20b4cf;
@@ -132,6 +136,7 @@
         padding-top: 10px;
         box-shadow: 0px 0px 0px, rgb(0 0 0 / 0.50) 1px -10px 10px inset;
         transition-duration: 0.5s;
+       
     }
 
 /* STIL DropDown  */
@@ -192,13 +197,18 @@
    
     box-shadow: rgb(0 0 0) 0px 30px 90px -19px inset, #0d0d0d 0px 8px 56px -18px inset;
 }
+
+.bodyCurs{
+    background-color:#55e1f5;
+}
+
 /* STIL ANUNTURI  */
 .TitluAnunt {
     padding-top: 1.5%;
     color: black;
     background-color: #20b4cf;
     text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
-    font-family: sans-serif;
+    font-family: serif;
     font-size: 40px;
     word-spacing: 15px;
     letter-spacing: 3px;
@@ -273,6 +283,95 @@
         box-shadow: #364968 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
     }
 
-.standardInputForm{
+.btnDownload {
+    background-color: #364968;
+    width: 80px;
+    height: 50px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size:30px;
+    transition-duration: 0.5s;
+    border: none;
+    border-radius: 5px;
+}
+
+    .btnDownload:hover {
+        transition-duration: 0.3s;
+        color:white;
+        padding:5px;
+        box-shadow: #364968 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
+    }
+.btnJoin {
+    background-color: #364968;
+    width: 80px;
+    height: 50px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    transition-duration: 0.5s;
+    border: none;
+    border-radius: 5px;
+}
+    .btnJoin:hover {
+        transition-duration: 0.3s;
+        color: white;
+        box-shadow: #364968 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
+    }
+
+
+.btnDeleteFile {
+    background-color: #364968;
+    width: 80px;
+    height: 50px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    transition-duration: 0.5s;
+    border: none;
+    border-radius: 5px;
+}
+    .btnDeleteFile:hover {
+        transition-duration: 0.3s;
+        color: white;
+        padding: 5px;
+        box-shadow: #364968 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
+    }
+
+.courseTitle {
+    font-weight:bold;
+    text-align:center;
+}
+
+.cardCurs{
+    width: 18rem;
+    border: solid 0.5px gray;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #278a9c;
+}
+
+
+.btnBrowseFileFromALabel {
+    background-color: #364968;
+    width: 80px;
+    height: 50px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    transition-duration: 0.5s;
+    border: none;
+    border-radius: 5px;
+}
+    .btnBrowseFileFromALabel:hover {
+        transition-duration: 0.3s;
+        color: white;
+        padding: 5px;
+        box-shadow: #364968 0px 30px 60px -12px inset, white 0px 18px 36px -18px inset;
+    }
+    .standardInputForm{
 
 }

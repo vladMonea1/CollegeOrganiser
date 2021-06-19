@@ -30,8 +30,10 @@ namespace CollegeOrganiser.Controllers
 
         public IActionResult Index()
         {
-   //         var attTest = _context.CoursesHeld.ToList();
-           var attendance = _context.CourseAttendances.Include(u => u.User).Include(c=>c.CourseAttended).Include(ch=>ch.CourseAttended.Course).ToList();
+  
+           var attendance = _context.CourseAttendances.Include(u => u.User)
+                .Include(c=>c.CourseAttended)
+                .Include(ch=>ch.CourseAttended.Course).ToList();
 
             return View(attendance);
         }

@@ -56,6 +56,7 @@ namespace CollegeOrganiser.Controllers
             return View(myCourses);
         }
 
+
         public IActionResult CreateCourse()
         {
             return View();
@@ -84,7 +85,7 @@ namespace CollegeOrganiser.Controllers
         [HttpGet]
         public async Task<IActionResult>SearchCourseResult(String SearchPhrase)
         {
-            var rezultatCautare = await _context.Courses.Where(j => j.CourseOwner.Contains(SearchPhrase)).ToListAsync();
+            var rezultatCautare = await _context.Courses.Where(j => j.CourseName.Contains(SearchPhrase)).ToListAsync();
 
             return View(rezultatCautare);
 

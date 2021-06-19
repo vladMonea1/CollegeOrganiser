@@ -27,9 +27,6 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
 
-                        <li class="nav-item ">
-                            <a class="nav-link " id="navBarItems" asp-area="" asp-controller="Home" asp-action="Privacy">PRIVACY</a>
-                        </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
@@ -50,29 +47,42 @@
                             </li>
                         }
 
-                        @if (User.IsInRole("Profesor") || User.IsInRole("Student"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link  " id="navBarItems" asp-area="" asp-controller="Course" asp-action="Index">CURSURI</a>
-                            </li>
 
-                        }
 
                         @if (User.IsInRole("Profesor"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navBarItems" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    MENIU PROFESR
+                                <a class="nav-link dropdown-toggle" id="navBarItems" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    TEACHER AREA
                                 </a>
-                                <div class="dropdown-menu dropDownProf" id="dropDownProf" aria-labelledby="navbarDropdown" >
-                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown"  asp-area="" asp-controller="Announcements" asp-action="AnnouncementCreation">ANUNT NOU</a>
+                                <div class="dropdown-menu dropDownProf" id="dropDownProf" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="Announcements" asp-action="AnnouncementCreation">ANUNT NOU</a>
                                     <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="File" asp-action="Index">DOCUMENT NOU</a>
-                                    <a class="dropdown-item container-fluid col-10"id="navBarItemsDropDown"  asp-area="" asp-controller="Course" asp-action="CreateCourse">CURS NOU</a>
-                                    @*<div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#"></a>*@
+                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="Course" asp-action="CreateCourse">CURS NOU</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="Course" asp-action="Index">CURSURI</a>
                                 </div>
                             </li>
                         }
+
+
+                        @if (User.IsInRole("Student"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navBarItems" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    STUDENT AREA
+                                </a>
+                                <div class="dropdown-menu dropDownProf" id="dropDownProf" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="Course" asp-action="MyCourses">CURSURILE MELE</a>
+                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="Attendance" asp-action="Index">PREZENTELE MELE</a>
+                                    <a class="dropdown-item container-fluid col-10" id="navBarItemsDropDown" asp-area="" asp-controller="Course" asp-action="Index">CURSURI</a>
+                                    @*<div class="dropdown-divider"></div>
+                                      <a class="dropdown-item" href="#"></a>*@
+                                </div>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>

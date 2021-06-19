@@ -1,42 +1,52 @@
 ﻿@model List<Courses>
+<h1 class="TitluAnunt pb-5">Rezultatele cautarii</h1>
 
-@{
-    ViewData["Title"] = "SEARCHRESULTS";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                ID Curs
-            </th>
-            <th>
-                Nume Curs
-            </th>
-            <th>
-                Profesor
-            </th>
-        </tr>
-    </thead>
-    <tbody>
+
+<div class="row">
+    <div class="col-2">
+
+    </div>
+
+    <div class="row container ">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @item.Id
-                </td>
-                <td>
-                    @item.CourseName
-                </td>
-                <td>
-                    @item.CourseOwner
 
-                </td>
-                <td>
-                    <a class="float-left btn btn-info" asp-controller="Course" asp-action="JoinCourse" asp-route-id="@item.Id">Join</a>
-                </td>
-            </tr>
+            <div class="col-4">
+                <div class="mb-4 cardCurs card d-inline-block ">
+                    <img class="card-img-top" src="~/Images/c2.png" alt="Card image cap">
+                    <div class="card-body bodyCurs">
+                        <h5 class="card-title courseTitle">@item.CourseName</h5>
+                        <hr style="border:1px solid white" />
+
+                        <p class="card-text">TITULAR CURS:</p>
+                        <p class="font-weight-bold">@item.CourseOwner</p>
+
+                        <a class="float-right btnJoin btn " asp-controller="Course" asp-action="JoinCourse" asp-route-id="@item.Id">JOIN</a>
+                    </div>
+                </div>
+
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+
+    <div class="container col-2">
+        <form asp-action="SearchCourseResult" method="get">
+
+            <div class="form-group">
+                <label for="SearchPhrase" class="control-label"> </label>
+                <input name="SearchPhrase" class="form-control" placeholder="Cauta un curs" />
+
+            </div>
+            <div class="form-group">
+
+                <button class="btnSearch" type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+
+

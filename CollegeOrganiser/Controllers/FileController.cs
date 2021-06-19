@@ -29,6 +29,7 @@ namespace CollegeOrganiser.Controllers
             var file = await _context.Files.ToListAsync();
             return file;
         }
+
         public async Task<IActionResult> Index()
         {
             var fileuploadViewModel = await LoadAllFiles();
@@ -42,6 +43,8 @@ namespace CollegeOrganiser.Controllers
             ViewBag.Message = TempData["Message"];
             return View(fileuploadViewModel);
         }
+
+
             [HttpPost]
         public async Task<IActionResult> UploadToDatabase(List<IFormFile> files, string description)
         {
@@ -79,7 +82,16 @@ namespace CollegeOrganiser.Controllers
             return File(file.Data, file.FileType, file.Name + file.Extension);
         }
 
-      
+        [HttpGet]
+        public async Task<IActionResult> SearchDocuments(String SearchPhrase)
+        {
+            var rezultatCautare = await _context.Files.Where(j => j.UploadedBy.Contains(SearchPhrase)).ToListAsync();
+
+            return View(rezultatCautare);
+
+        }
+
+
         public async Task<IActionResult> DeleteFileFromDatabase(int id)
         {
             var file = await _context.Files.Where(x => x.Id == id).FirstOrDefaultAsync();

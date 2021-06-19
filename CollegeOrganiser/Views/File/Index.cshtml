@@ -1,11 +1,14 @@
-﻿@model List<FileModel>
+﻿@using Microsoft.AspNetCore.Identity
+@model List<FileModel>
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/css/style.css" rel="stylesheet" />
-<h4>LISTEAZA TEME</h4>
+
+<h1 class="TitluAnunt pb-4 ">LISTEAZA DOCUMENTE</h1>
+<hr />
 
 @if (ViewBag.Message != null)
 {
@@ -13,22 +16,7 @@
         @ViewBag.Message
     </div>
 }
-@if (User.IsInRole("Profesor"))
-{
-<form method="post" enctype="multipart/form-data">
 
-
-
-    <label for="file-upload" class="custom-file-upload">
-        ALEGE FISIER
-    </label>
-    <input id="file-upload" type="file" name="files" multiple required />
-    
-
-    <input type="text" autocomplete="off" placeholder="Detalii tema" name="description" required />
-    <button class="btn btn-success" type="submit" asp-controller="File" asp-action="UploadToDatabase">UPLOAD</button>
-</form>
-}
 
 @if (Model.Count == 0)
 {
@@ -36,37 +24,47 @@
 }
 else
 {
+    <div class="row">
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Tema nr:</th>
-                <th>Autor</th>
-                <th>Titlul Temei:</th>
-                <th>Detalii Tema:</th>
-                <th>Asignat la data:</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="row container col-8">
             @foreach (var file in Model)
             {
-            <tr>
 
-                <th>@file.Id</th>
-                <th>@file.UploadedBy</th>
-                <td>@file.Name</td>
-                <td>@file.Description</td>
-                <td>@file.CreatedOn</td>
-                <td>
-                    <a type="button" class="btn btn-primary" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id">DOWNLOAD</a>
-                    @if (User.IsInRole("Profesor"))
-                    {
-                        <a type="button" class="btn btn-danger" asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">DELETE</a>
-                    }
-                </td>
-            </tr>
+
+                <div class="col-4 bg">
+                    <div class="card text-center  mb-2">
+                        <div class="card-header titluAnunturi">@file.UploadedBy</div>
+                        <div class="card-body bodyAnunt ">
+                            <h5 class="card-title">@file.Name@file.Extension</h5>
+                            <p class="card-text">
+                                @file.Description
+                            </p>
+                            <a type="button" class="btn btnDownload" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id"><i class="fas fa-file-download"></i></a>
+                            @if (UserManager.GetUserAsync(User).Result.NumeUtilizator == file.UploadedBy)
+                            {
+                                <a type="button" class="btn btnDeleteFile " asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id"><i class="fas fa-trash-alt"></i></a>
+                            }
+                        </div>
+                        <div class="card-footer titluAnunturi text-white">@file.CreatedOn</div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
+            
+        </div>
+         
+            <div class="container  col-3  ">
+                @if (User.IsInRole("Profesor"))
+                {
+                <form method="post" enctype="multipart/form-data">
+
+                    <input id="file" type="file" name="files" multiple required style="display: none;" />
+                    <label class="btn btnBrowseFileFromALabel mt-2 ml-2 " for="file"><i class="fas fa-plus"></i></label>
+                    <input   type="text" autocomplete="off" placeholder="DETALII DOCUMENT" name="description" required />
+                    <div class="col-1"> </div>
+                    <button class="btn btnSubmit ml-2" type="submit" asp-controller="File" asp-action="UploadToDatabase"><i class="fas fa-upload"></i></button>
+                </form>
+                }
+            </div>
+       
+    </div>
 }

@@ -1,36 +1,55 @@
 ﻿@model List<CoursesForUser>
-<h1 class="TitluAnunt">MY COURSES</h1>
+<h1 class="TitluAnunt pb-3">CURSURILE MELE</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                ID Curs
-            </th>
-            <th>
-                TITULAR CURS
-               
-            </th>
-            <th>
-               NUME CURS
-            </th>
-        </tr>
-    </thead>
-    <tbody>
+
+<hr />
+
+
+
+<div class="row">
+    <div class="col-2">
+
+    </div>
+
+    <div class="row container ">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @item.Id
-                </td>
-                <td>
-                    @item.CoursesAssigned.CourseOwner
-                </td>
-                <td>
-                    @item.CoursesAssigned.CourseName
-                </td>
 
-            </tr>
+            <div class="col-4">
+                <div class="mb-4 cardCurs card d-inline-block ">
+                    <img class="card-img-top" src="~/Images/c2.png" alt="Card image cap">
+                    <div class="card-body bodyCurs">
+                        <h5 class="card-title courseTitle">@item.CoursesAssigned.CourseName</h5>
+                        <hr style="border:1px solid white" />
+
+                        <p class="card-text">TITULAR CURS:</p>
+                        <p class="font-weight-bold">@item.CoursesAssigned.CourseOwner</p>
+
+                        @*<a class="float-right btnJoin btn " asp-controller="Course" asp-action="JoinCourse" asp-route-id="@item.Id">JOIN</a>*@
+                    </div>
+                </div>
+
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+
+    <div class="container col-2">
+        <form asp-action="SearchCourseResult" method="get">
+
+            <div class="form-group">
+                <label for="SearchPhrase" class="control-label"> </label>
+                <input name="SearchPhrase" class="form-control" placeholder="Cauta un curs" />
+
+            </div>
+            <div class="form-group">
+
+                <button class="btnSearch" type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+
+

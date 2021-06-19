@@ -1,0 +1,59 @@
+﻿@model List<FileModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/style.css" rel="stylesheet" />
+<h4 class="TitluAnunt pb-3">Rezultatele cautarii</h4>
+
+
+@if (Model.Count == 0)
+{
+    <caption>Nicio tema adaugata recent</caption>
+}
+else
+{
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="row container col-8">
+
+            @foreach (var file in Model)
+            {
+
+                <div class="col-4 bg">
+                    <div class="card text-center  mb-2">
+                        <div class="card-header titluAnunturi">@file.UploadedBy</div>
+                        <div class="card-body bodyAnunt ">
+                            <h5 class="card-title">@file.Name@file.Extension</h5>
+                            <p class="card-text">
+                                @file.Description
+                            </p>
+                            <a type="button" class="btn btnDownload" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id"><i class="fas fa-file-download"></i></a>
+
+                        </div>
+                        <div class="card-footer titluAnunturi text-white">@file.CreatedOn</div>
+                    </div>
+                </div>
+
+
+            }
+        </div>
+        <div class="container col-2  ">
+
+
+            <form asp-action="SearchDocuments" method="get">
+
+                <div class="form-group">
+                    <label for="SearchPhrase" class="control-label"></label>
+                    <input name="SearchPhrase" class="form-control" placeholder="Cauta un document" />
+                </div>
+                <div class="form-group">
+                    <button class="btnSearch" type="submit" value="Search"><i class="fas fa-search" aria-hidden="true"></i></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+}
+

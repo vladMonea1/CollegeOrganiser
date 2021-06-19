@@ -36,7 +36,8 @@ namespace CollegeOrganiser.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAnnouncement(DateTime CreatedOn, string Title, string Description/*, string Author*/)
+        public async Task<IActionResult> CreateAnnouncement(DateTime CreatedOn,
+            string Title, string Description)
         {
             CreatedOn = DateTime.Now;
             
@@ -54,6 +55,7 @@ namespace CollegeOrganiser.Controllers
           await  _context.SaveChangesAsync();
             return RedirectToAction("GetAllAnnouncements");
         }
+
 
        
         [HttpGet]
