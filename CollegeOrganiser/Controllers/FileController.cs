@@ -10,6 +10,7 @@ using CollegeOrganiser.Models;
 using CollegeOrganiser.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Routing;
 
 namespace CollegeOrganiser.Controllers
 {
@@ -45,10 +46,10 @@ namespace CollegeOrganiser.Controllers
         }
 
 
-            [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> UploadToDatabase(List<IFormFile> files, string description)
         {
-             
+
             foreach (var file in files)
             {
                 var fileName = Path.GetFileNameWithoutExtension(file.FileName);
@@ -60,9 +61,9 @@ namespace CollegeOrganiser.Controllers
                     Extension = extension,
                     Name = fileName,
                     Description = description,
-                    UploadedBy= _userManager.GetUserAsync(User).Result.NumeUtilizator
+                    UploadedBy = _userManager.GetUserAsync(User).Result.NumeUtilizator
 
-            };
+                };
                 using (var dataStream = new MemoryStream())
                 {
                     await file.CopyToAsync(dataStream);
@@ -74,6 +75,7 @@ namespace CollegeOrganiser.Controllers
             TempData["Message"] = "File successfully uploaded to Database";
             return RedirectToAction("Index");
         }
+
 
         public async Task<IActionResult> DownloadFileFromDatabase(int id)
         {
@@ -100,5 +102,7 @@ namespace CollegeOrganiser.Controllers
             TempData["Message"] = $"Removed {file.Name + file.Extension} successfully from Database.";
             return RedirectToAction("Index");
         }
+
+
     }
 }

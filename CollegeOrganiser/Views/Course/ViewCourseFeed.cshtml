@@ -1,0 +1,46 @@
+﻿@model  ModelFeedCurs
+
+
+
+
+<h1 class="TitluAnunt pb-3">CourseFeed</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-primary" asp-controller="Course" asp-action="InitiazaPrezenta" asp-route-id="@Model.CourseId">Initiaza Prezenta </a>
+    </div>
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4 pt-3 pb-4" id="logInContainer">
+        @*<form id="logInForm" asp-controller="Course" asp-action="PrezentaStudent" method="post">
+          
+            <div class="form-group">
+                <label for="InputPrezenta">Prezenta</label>
+                <input type="text" class="form-control" id="logInInputs" name="InputPrezenta">
+            </div>
+            <button type="submit" class="btn btnSubmit mb-2">ADD</button>
+        </form>*@
+        @foreach(var item in Model.CursurileCareSeTin)
+            {
+        <div class="row ">
+            <div class="col-8">
+                @item.DateHeld
+            </div>
+            <div class="col-4">
+                @if (Model.Prezente.Any(p => p.CourseAttended == item))
+                {
+                    <i class="far fa-check-square" style="color:green;"></i>
+                }
+                else
+                {
+
+
+                    <a class="btn btn-primary" asp-controller="Course" asp-action="PunePrezenta" asp-route-id="@item.Id">Prezent </a>
+                    
+                }
+            </div>
+        </div>
+        }
+    </div>
+</div>

@@ -25,7 +25,7 @@
                         <p class="card-text">TITULAR CURS:</p>
                         <p class="font-weight-bold">@item.CoursesAssigned.CourseOwner</p>
 
-                        @*<a class="float-right btnJoin btn " asp-controller="Course" asp-action="JoinCourse" asp-route-id="@item.Id">JOIN</a>*@
+                        <a class="float-right btnJoin btn " asp-controller="Course" asp-action="ViewCourseFeed" asp-route-id="@item.CoursesAssigned.Id">ViewCourse</a>
                     </div>
                 </div>
 

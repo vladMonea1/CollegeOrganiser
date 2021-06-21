@@ -14,6 +14,7 @@ namespace CollegeOrganiser.Models
         public bool Attended { get; set; }
 
         public CoursesHeld CourseAttended { get; set; }
+
         public ApplicationUser User{ get; set; }
 
     }
