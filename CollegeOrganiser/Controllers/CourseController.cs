@@ -101,8 +101,102 @@ namespace CollegeOrganiser.Controllers
         }
 
 
+        [Route("Course/ViewCourseFeed/{id}")]
 
-  
+        public async Task<IActionResult> ViewCourseFeed(int id)
+        {
+
+            var user = _userManager.GetUserAsync(User).Result;
+            ModelFeedCurs model = new ModelFeedCurs();
+
+            model.CursurileCareSeTin = await _context.CoursesHeld.Include(c => c.Course).Where(course => course.Course.Id == id).ToListAsync();
+
+            model.Prezente = await _context.CourseAttendances.Where(c => c.User == user && model.CursurileCareSeTin.Contains(c.CourseAttended)).ToListAsync();
+
+            model.CourseId = id;
+
+            model.AnunturileCursului = await _context.AnunturiCurs.Where(p => p.forCourseWithId == id).ToListAsync();
+
+
+            return View(model);
+        }
+
+        [Route("Course/PunePrezenta/{id}")]
+
+        public async Task<IActionResult> PunePrezenta(int id)
+        {
+            var cursTinut = _context.CoursesHeld.Include(c => c.Course).FirstOrDefault(ch => ch.Id == id);
+
+            CourseAttendances prezenta = new CourseAttendances
+            {
+                Attended = true,
+                User = _userManager.GetUserAsync(User).Result,
+                CourseAttended = cursTinut
+
+            };
+
+            _context.CourseAttendances.Add(prezenta);
+            _context.SaveChanges();
+
+            var curs = cursTinut.Course;
+
+            return RedirectToAction("ViewCourseFeed", new { id = curs.Id });
+        }
+
+        public async Task<IActionResult> InitiazaPrezenta(int id)
+        {
+            var cursCurent = _context.Courses.FirstOrDefault(c => c.Id == id);
+
+
+
+            CoursesHeld curS = new CoursesHeld()
+            {
+                DateHeld = DateTime.Now,
+                Course = cursCurent,
+
+            };
+            _context.CoursesHeld.Add(curS);
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewCourseFeed", new { id = cursCurent.Id });
+        }
+        //https://localhost:44343/Course/ViewCourseFeed/1013    
+        [HttpGet]
+        public IActionResult AnuntCursNou(int CourseId)
+        {   
+            return View(CourseId);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AnuntCursNou(DateTime CreatedOn,
+        string Title, string Description, int CourseId)
+        {
+
+            #region testing
+            /* var testid = CourseId;
+             if (Description == null || Title == null || CreatedOn == null)
+             {
+                 TempData["CompletionError"] = "All fields are required";
+                 return RedirectToAction("AnuntCursNou", new { id = CourseId });
+             } */
+            #endregion
+            CreatedOn = DateTime.Now;
+            var anuntNou = new AnuntModelCurs
+            {
+                CreatedOn = CreatedOn,
+                Title = Title,
+                Description = Description,
+                forCourseWithId = CourseId,
+                Author = _userManager.GetUserAsync(User).Result.NumeUtilizator,
+               
+            };
+          
+
+            _context.AnunturiCurs.Add(anuntNou);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("ViewCourseFeed", new { id = CourseId });
+        }
+
 
     }
 }

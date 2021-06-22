@@ -1,0 +1,72 @@
+﻿@model int
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="TitluAnunt pb-3">CREEAZA ANUNT</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4 pt-3 pb-4" id="logInContainer">
+        @*@if(TempData["CompletionError"] != null)
+        {
+        <a style="color:red; text-align:center; font-size:25px;"> @TempData["CompletionError"]</a>
+        }*@
+        <form asp-action="AnuntCursNou" id="logInForm"  method="post">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            @*<div class="form-group">
+
+            <label asp-for="CreatedOn" class="control-label">Data de astazi</label>
+            <input id="datepicker" asp-for="CreatedOn" class="form-control" />
+            <span asp-validation-for="CreatedOn" class="text-danger"></span>
+        </div>*@
+            <input type="hidden" name="CourseId" value="@Model"/>
+
+            <div class="form-group">
+                <label name="CreatedOn">DATA</label>
+                <input type="date" required name="CreatedOn" max="3000-12-31"
+                       min="1000-01-01" class="form-control" id="logInInputs">
+            </div>
+            <div class="form-group">
+                <label name="Title" class="control-label">TITLU</label>
+                <input name="Title" class="form-control" required id="logInInputs" />
+                 
+            </div>
+            <div class="form-group">
+                <label name="Description" class="control-label">MESAJ</label>
+                <input name="Description" class="form-control" required id="logInInputs" />
+                 
+            </div>
+            
+            @*<div class="form-group">
+            <label asp-for="Author" class="control-label">Prof</label>
+            <input asp-for="Author" class="form-control" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+
+                <button type="submit" value="Create" class="btnSubmit">ADD </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

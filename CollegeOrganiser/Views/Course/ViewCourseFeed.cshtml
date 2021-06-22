@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNetCore.Identity
+ 
+
+@inject UserManager<ApplicationUser> UserManager
+ 
+@model ModelFeedCurs
+
+
+
+
+<h1 class="TitluAnunt pb-3">FEED CURS</h1>
+<hr />
+
+
+
+<div class="row bg-danger">
+    <div class="col-md-1 bg-info">
+
+        @if (@User.IsInRole("Profesor"))
+        {
+
+            <a class="btn btnSubmit" asp-controller="Course" asp-action="InitiazaPrezenta" asp-route-id="@Model.CourseId">Initiaza Prezenta </a>
+            <a class="btn btnSubmit" asp-controller="Course" asp-action="AnuntCursNou" asp-route-CourseId="@Model.CourseId" >Anunt Nou</a>
+            @*<button onclick="myFunction()"> </button>
+            baga si  id = "setPrezenta"*@
+        }
+    </div>
+    <div class="col-4 bg"></div>
+    <div class="col-md-5 bg-warning">
+        @foreach (var item in Model.AnunturileCursului)
+        {
+            <div class="col-12">
+                <div class="container-fluid  d-inline-block ">
+                    <div class="card-header titluAnunturi">
+                        <div class="col-1 float-right btnDelete">
+                            @if (UserManager.GetUserAsync(User).Result.NumeUtilizator == item.Author)
+                            {
+                                <a class="btnDelete" asp-action="DeleteAnnouncement" asp-route-id="@item.Id"> <i class="far fa-trash-alt" aria-hidden="true"></i></a>
+
+                            }
+                        </div>
+                        <h2>
+                            @Html.DisplayFor(modelItem => item.Title)
+
+                        </h2>
+
+                    </div>
+
+                    <div class="card-body bodyAnunt container-fluid ">
+                        <blockquote class=" blockquote mb-0  ">
+                            <p> @Html.DisplayFor(modelItem => item.Description)</p>
+
+                            <hr style="background-color:white;" />
+                            <footer class="block-footer mt-5">@Html.DisplayFor(modelItem => item.CreatedOn.DateTime) <cite title="Source Title" style="font-weight:bold;">@Html.DisplayFor(modelItem => item.Author) </cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+    <div class="col-md-2 pt-3 pb-4" >
+     
+        @foreach (var item in Model.CursurileCareSeTin)
+        {
+            <div class="row  ml-1 container" >
+                <div class="col-8 " id="logInForm">
+                    @item.DateHeld
+
+                </div>
+                <div class="col-4" id="logInForm">
+                    @if (User.IsInRole("Student") && Model.Prezente.Any(p => p.CourseAttended == item))
+                    {
+                        <i class="far fa-check-square" style="color:green;"></i>
+                    }
+                    else if (  User.IsInRole("Student") && item.DateHeld.Date != DateTime.Now.Date)
+                    {
+                        <i class="far fa-window-close" style="color:red;"></i>
+
+                    }
+                    else if (User.IsInRole("Student") && item.DateHeld.Date == DateTime.Now.Date)
+                    {
+                        <a class="btn btn-primary" asp-controller="Attendance" asp-action="PunePrezenta" asp-route-id="@item.Id">Prezent </a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
