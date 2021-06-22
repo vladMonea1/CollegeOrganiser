@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity
+ 
+
+@inject UserManager<ApplicationUser> UserManager
+ 
+@model ModelFeedCurs
+
+
+
+
+<h1 class="TitluAnunt pb-3">FEED CURS</h1>
+<hr />
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        
+        @if (@User.IsInRole("Profesor"))
+        {
+
+            <a class="btn btn-primary"  asp-controller="Attendance" asp-action="InitiazaPrezenta" asp-route-id="@Model.CourseId" >Initiaza Prezenta </a>
+            @*<button onclick="myFunction()"> </button>
+            baga si  id = "setPrezenta"*@ 
+        }
+    </div>
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4 pt-3 pb-4 " id="logInContainer" >
+     
+        @foreach (var item in Model.CursurileCareSeTin)
+        {
+            <div class="row  ml-1 container" >
+                <div class="col-8 " id="logInForm">
+                    @item.DateHeld
+                </div>
+                <div class="col-4" id="logInForm">
+                    @if (User.IsInRole("Student") && Model.Prezente.Any(p => p.CourseAttended == item))
+                    {
+                        <i class="far fa-check-square" style="color:green;"></i>
+                    }
+                    else if (  User.IsInRole("Student") && item.DateHeld.Date != DateTime.Now.Date)
+                    {
+                        <i class="far fa-window-close" style="color:red;"></i>
+
+                    }
+                    else if (User.IsInRole("Student") && item.DateHeld.Date == DateTime.Now.Date)
+                    {
+                        <a class="btn btn-primary" asp-controller="Attendance" asp-action="PunePrezenta" asp-route-id="@item.Id">Prezent </a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

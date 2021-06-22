@@ -1,4 +1,4 @@
-﻿@model List<CoursesForUser>
+﻿@model List<Courses>
 <h1 class="TitluAnunt pb-3">CURSURILE MELE</h1>
 
 
@@ -19,13 +19,13 @@
                 <div class="mb-4 cardCurs card d-inline-block ">
                     <img class="card-img-top" src="~/Images/c2.png" alt="Card image cap">
                     <div class="card-body bodyCurs">
-                        <h5 class="card-title courseTitle">@item.CoursesAssigned.CourseName</h5>
+                        <h5 class="card-title courseTitle">@item.CourseName</h5>
                         <hr style="border:1px solid white" />
 
                         <p class="card-text">TITULAR CURS:</p>
-                        <p class="font-weight-bold">@item.CoursesAssigned.CourseOwner</p>
+                        <p class="font-weight-bold">@item.CourseOwner</p>
 
-                        <a class="float-right btn btnDetalii" asp-controller="Course" asp-action="ViewCourseFeed" asp-route-id="@item.CoursesAssigned.Id">DETALII</a>
+                        <a class="float-right btn btnDetalii" asp-controller="Course" asp-action="ViewCourseFeed" asp-route-id="@item.Id">DETALII</a>
                     </div>
                 </div>
 
