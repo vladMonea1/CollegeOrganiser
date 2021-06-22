@@ -1,0 +1,26 @@
+﻿@model List<EvidentaPrezenteModel>
+
+
+
+
+<h1 class="TitluAnunt pb-3">EVIDENTA PREZENTELOR</h1>
+<hr />
+<div class="row">
+    <div class="row  col-9  ">
+        @foreach (var item in Model)
+        {
+
+            <div class="card ml-2">
+                <div class="card-header titluAnunturi text-xl-center">
+                    STATUS STUDENT
+                </div>
+                <ul class=" list-group list-group-flush ">
+                    <li class="list-group-item bodyAnunt ">USER: @item.user</li>
+                    <li class="list-group-item bodyAnunt text-xl-center">PEZENTE: @item.controPrezente</li>
+                    
+                </ul>
+            </div>
+
+        }
+    </div>
+</div>

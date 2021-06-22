@@ -9,7 +9,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
- 
+
+
+
 
 namespace CollegeOrganiser.Controllers
 {
@@ -29,10 +31,10 @@ namespace CollegeOrganiser.Controllers
             var courses = _context.Courses.ToList();
             return View(courses);
         }
-        public async Task<IActionResult> JoinCourse(int ?id)
+        public async Task<IActionResult> JoinCourse(int? id)
         {
-            if (id != null)
-            {
+            //if (id != null)
+            //{
                 var user = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
                 var courseToJoin = _context.Courses.FirstOrDefault(c => c.Id == id);
                 var course = new CoursesForUser()
@@ -41,14 +43,14 @@ namespace CollegeOrganiser.Controllers
                     CoursesAssigned = courseToJoin,
                     AssignedToCourse = true
                 };
-                if (!_context.CoursesForUsers.Any(c => c.CoursesAssigned.CourseName==courseToJoin.CourseName))
-                {
+                //if (!_context.CoursesForUsers.Any(c => c.CoursesAssigned.CourseName == courseToJoin.CourseName))
+                //{
                     _context.CoursesForUsers.Add(course);
                     await _context.SaveChangesAsync();
-                }
+                //}
                 return RedirectToAction("MyCourses");
-            }
-            return RedirectToAction("Index");
+            //}
+            //return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> MyCourses()
@@ -82,19 +84,19 @@ namespace CollegeOrganiser.Controllers
                 CourseName = NumeCurs
             };
 
-            if(!_context.Courses.Any(c=>c==course))
+            if (!_context.Courses.Any(c => c == course))
             {
                 _context.Courses.Add(course);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("Index");
 
-          
+
         }
 
-       
+
         [HttpGet]
-        public async Task<IActionResult>SearchCourseResult(String SearchPhrase)
+        public async Task<IActionResult> SearchCourseResult(String SearchPhrase)
         {
             var rezultatCautare = await _context.Courses.Where(j => j.CourseName.Contains(SearchPhrase)).ToListAsync();
 
@@ -119,8 +121,9 @@ namespace CollegeOrganiser.Controllers
 
             model.AnunturileCursului = await _context.AnunturiCurs.Where(p => p.forCourseWithId == id).ToListAsync();
 
-            model.TemeleCursului = await  _context.FileCurs.Where(p => p.fileForCourseWithId == id).ToListAsync();
+            model.TemeleCursului = await _context.FileCurs.Where(p => p.fileForCourseWithId == id).ToListAsync();
 
+            model.ContorPrezente =  _context.CoursesHeld.Include(c => c.Course).Where(course => course.Course.Id == id).Count();
 
             return View(model);
         }
@@ -166,7 +169,7 @@ namespace CollegeOrganiser.Controllers
         }
         [HttpGet]
         public IActionResult AnuntCursNou(int CourseId)
-        {   
+        {
             return View(CourseId);
         }
 
@@ -190,9 +193,9 @@ namespace CollegeOrganiser.Controllers
                 Description = Description,
                 forCourseWithId = CourseId,
                 Author = _userManager.GetUserAsync(User).Result.NumeUtilizator,
-               
+
             };
-          
+
 
             _context.AnunturiCurs.Add(anuntNou);
             await _context.SaveChangesAsync();
@@ -240,7 +243,7 @@ namespace CollegeOrganiser.Controllers
                     Description = description,
                     UploadedBy = _userManager.GetUserAsync(User).Result.NumeUtilizator,
                     fileForCourseWithId = CourseId
-                    
+
 
                 };
                 using (var dataStream = new MemoryStream())
@@ -251,12 +254,12 @@ namespace CollegeOrganiser.Controllers
                 _context.FileCurs.Add(fileModel);
                 _context.SaveChanges();
             }
-             
-           
+
+
             return RedirectToAction("ViewCourseFeed", new { id = CourseId });
         }
 
-        
+
 
         public async Task<IActionResult> DownloadFileCurs(int id)
         {
@@ -272,6 +275,27 @@ namespace CollegeOrganiser.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("ViewCourseFeed", new { id = CourseId });
+        }
+
+        public async Task<IActionResult> FeedbackPrezente(int CourseId)
+        {
+            List<EvidentaPrezenteModel> model = new List<EvidentaPrezenteModel>();
+
+            var curs = _context.Courses.FirstOrDefault(c => c.Id == CourseId);
+            var ceva = _context.CoursesForUsers.Include(u => u.User).Where(z => z.CoursesAssigned == curs);
+            var useriLaCurs = ceva.Select(u => u.User);
+
+            var toateCursurileTinute = _context.CoursesHeld.Where(x => x.Course.Id == CourseId);
+
+            foreach (var user in useriLaCurs)
+            {
+                EvidentaPrezenteModel evidenta = new EvidentaPrezenteModel();
+                evidenta.user = user;
+                evidenta.controPrezente = _context.CourseAttendances.Where(c => c.User == user && toateCursurileTinute.Contains(c.CourseAttended)).Count();
+                model.Add(evidenta);
+            }
+            
+            return View(model);
         }
     }
 }

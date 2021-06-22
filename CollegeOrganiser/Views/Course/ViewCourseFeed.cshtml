@@ -14,17 +14,65 @@
 
 
 <div class="row r">
-    <div class="col-md-1 ">
+    <div class="col-md-1">
 
         @if (@User.IsInRole("Profesor"))
         {
 
-            <a class="btn btnSubmit mb-1" asp-controller="Course" asp-action="InitiazaPrezenta" asp-route-id="@Model.CourseId">Initiaza Prezenta </a>
-            <a class="btn btnSubmit mb-1" asp-controller="Course" asp-action="AnuntCursNou" asp-route-CourseId="@Model.CourseId">Anunt Nou</a>
-            <a class="btn btnSubmit mb-1" asp-controller="Course" asp-action="TemaCursNoua" asp-route-CourseId="@Model.CourseId">Tema Noua</a>
+            @*<a class=" col-12 btn btnFeedCurs mb-1 pb-5" asp-controller="Course" asp-action="InitiazaPrezenta" asp-route-id="@Model.CourseId">START PREZENTA</a>
+            <a class="btn btnFeedCurs mb-1 pb-5" asp-controller="Course" asp-action="AnuntCursNou" asp-route-CourseId="@Model.CourseId">ANUNTU NOU</a>
+            <a class="btn btnFeedCurs mb-1 pb-5" asp-controller="Course" asp-action="TemaCursNoua" asp-route-CourseId="@Model.CourseId">TEMA NOUA</a>
+            <a class="btn btnFeedCurs mb-1 pb-5" asp-controller="Course" asp-action="FeedbackPrezente" asp-route-CourseId="@Model.CourseId">GESTIUNE PREZENTE</a>*@
+
+             
 
             @*<button onclick="myFunction()"> </button>
             baga si  id = "setPrezenta"*@
+
+            <nav class="navbarx">
+                <ul class=" navbarx-navx">
+                    <li class="logox">
+                        <a class="navx-linkx">
+                            <i class="fas fa-angle-double-right"></i>
+                            <span class="linkx-textx"></span>
+                        </a>
+                    </li>
+
+                    <li class="navx-itemx">
+
+                        <a class="navx-linkx " asp-controller="Course" asp-action="InitiazaPrezenta" asp-route-id="@Model.CourseId">
+                            <i class="fas fa-check"></i>
+                            <span class="linkx-textx"> START PREZENTA</span>
+                        </a>
+                    </li>
+
+                    <li class="navx-itemx">
+
+                        <a class="navx-linkx " asp-controller="Course" asp-action="AnuntCursNou" asp-route-CourseId="@Model.CourseId">
+                            <i class="fas fa-bullhorn"></i>
+                            <span class="linkx-textx"> ANUNT NOU</span>
+                        </a>
+                    </li>
+
+                    <li class="navx-itemx">
+
+                        <a class="navx-linkx " asp-controller="Course" asp-action="TemaCursNoua" asp-route-CourseId="@Model.CourseId">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="linkx-textx"> TEMA NOUA</span>
+                        </a>
+                    </li>
+
+                    <li class="navx-itemx">
+
+                        <a class="navx-linkx " asp-controller="Course" asp-action="FeedbackPrezente" asp-route-CourseId="@Model.CourseId">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span class="linkx-textx">PREZENTE STUDENTI</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </nav>
         }
     </div>
     <div class="col-3">
@@ -85,28 +133,30 @@
         }
     </div>
 
-    <div class="col-md-2 pt-3 pb-4" >
-        <h1>Istoric Prezente</h1>
+    <div class="col-md-2 pt-3 pb-4">
+        <h3 class="ml-2 titluAnunturi pb-2" style="text-decoration:none; text-align:center; font-weight:normal; font-size:22px;">CURSURI TINUTE <br /> ISTORIC PREZENTE: @Model.ContorPrezente</h3>
+     
         @foreach (var item in Model.CursurileCareSeTin)
         {
-            <div class="row  ml-1 container" >
-                <div class="col-8 " id="logInForm">
+            
+            <div class="row  ml-1 pt-2 pb-2 container" id="logInContainer">
+                <div class="col-7 " id="logInForm">
                     @item.DateHeld
 
                 </div>
-                <div class="col-4" id="logInForm">
+                <div class="col-5" id="logInForm">
                     @if (User.IsInRole("Student") && Model.Prezente.Any(p => p.CourseAttended == item))
                     {
-                        <i class="far fa-check-square" style="color:green;"></i>
+                        <i class="far fa-check-square mt-3" style="color:lawngreen;"></i>
                     }
-                    else if (  User.IsInRole("Student") && item.DateHeld.Date != DateTime.Now.Date)
+                    else if (User.IsInRole("Student") && item.DateHeld.Date != DateTime.Now.Date)
                     {
                         <i class="far fa-window-close" style="color:red;"></i>
 
                     }
                     else if (User.IsInRole("Student") && item.DateHeld.Date == DateTime.Now.Date)
                     {
-                        <a class="btn btn-primary" asp-controller="Attendance" asp-action="PunePrezenta" asp-route-id="@item.Id">Prezent </a>
+                        <a class="col-12 btn btnPrezenta mt-2" asp-controller="Course" asp-action="PunePrezenta" asp-route-id="@item.Id">PREZENT</a>
                     }
                 </div>
             </div>

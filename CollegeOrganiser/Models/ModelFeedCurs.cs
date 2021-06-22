@@ -14,5 +14,7 @@ namespace CollegeOrganiser.Models
         public List<CoursesHeld> CursurileCareSeTin { get; set; }
 
         public int CourseId { get; set; }
+
+        public int ContorPrezente { get; set; }
     }
 }
