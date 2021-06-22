@@ -8,7 +8,7 @@ namespace CollegeOrganiser.Models
     public class ModelFeedCurs
     {
         public List <AnuntModelCurs>  AnunturileCursului { get; set; }
-        public List<FileModel> TemeleCursului { get; set; }
+        public List<FileModelCurs> TemeleCursului { get; set; }
         public List<CourseAttendances> Prezente { get; set; }
 
         public List<CoursesHeld> CursurileCareSeTin { get; set; }

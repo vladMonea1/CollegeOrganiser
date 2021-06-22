@@ -1,0 +1,19 @@
+﻿@model int
+
+
+
+<div class="container  col-3  ">
+    @if (User.IsInRole("Profesor"))
+    {
+    <form method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="CourseId" value="@Model"/>
+
+        <input id="file" type="file" name="files" multiple required style="display: none;" />
+        <label class="btn btnBrowseFileFromALabel mt-2 ml-2 " for="file"><i class="fas fa-plus"></i></label>
+        <input type="text" autocomplete="off" placeholder="DETALII DOCUMENT" name="description" required />
+        <div class="col-1"> </div>
+        <button class="btn btnSubmit ml-2" type="submit" asp-controller="Course" asp-action="TemaCursNoua"><i class="fas fa-upload"></i></button>
+    </form>
+    }
+</div>

@@ -21,6 +21,7 @@ namespace CollegeOrganiser.Data
         public DbSet<AnuntModel> AnuntModel { get; set; }
 
         public DbSet<AnuntModelCurs> AnunturiCurs { get; set; }
+        public DbSet<FileModelCurs> FileCurs { get; set; }
 
         public DbSet<Courses> Courses { get; set; }
         public DbSet<CoursesHeld> CoursesHeld { get; set; }

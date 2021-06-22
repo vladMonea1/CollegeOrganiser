@@ -13,20 +13,45 @@
 
 
 
-<div class="row bg-danger">
-    <div class="col-md-1 bg-info">
+<div class="row r">
+    <div class="col-md-1 ">
 
         @if (@User.IsInRole("Profesor"))
         {
 
-            <a class="btn btnSubmit" asp-controller="Course" asp-action="InitiazaPrezenta" asp-route-id="@Model.CourseId">Initiaza Prezenta </a>
-            <a class="btn btnSubmit" asp-controller="Course" asp-action="AnuntCursNou" asp-route-CourseId="@Model.CourseId" >Anunt Nou</a>
+            <a class="btn btnSubmit mb-1" asp-controller="Course" asp-action="InitiazaPrezenta" asp-route-id="@Model.CourseId">Initiaza Prezenta </a>
+            <a class="btn btnSubmit mb-1" asp-controller="Course" asp-action="AnuntCursNou" asp-route-CourseId="@Model.CourseId">Anunt Nou</a>
+            <a class="btn btnSubmit mb-1" asp-controller="Course" asp-action="TemaCursNoua" asp-route-CourseId="@Model.CourseId">Tema Noua</a>
+
             @*<button onclick="myFunction()"> </button>
             baga si  id = "setPrezenta"*@
         }
     </div>
-    <div class="col-4 bg"></div>
-    <div class="col-md-5 bg-warning">
+    <div class="col-3">
+       @foreach (var item in Model.TemeleCursului)
+       {
+        <div class="col-12">
+            <div class="card text-center mb-2">
+                <div class="card-header titluAnunturi">@item.UploadedBy</div>
+                <div class="card-body bodyAnunt ">
+                    <h5 class="card-title">@item.Name@item.Extension</h5>
+                    <p class="card-text">
+                        @item.Description
+                    </p>
+                    <a type="button" class="btn btnDownload" asp-controller="Course" asp-action="DownloadFileCurs" asp-route-id="@item.Id"><i class="fas fa-file-download"></i></a>
+                    @if (UserManager.GetUserAsync(User).Result.NumeUtilizator == item.UploadedBy)
+                    {
+                        <a type="button" class="btn btnDeleteFile " asp-controller="Course" asp-action="DeleteFileFromDatabase" asp-route-CourseId="@Model.CourseId" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                    }
+
+                </div>
+                <div class="card-footer titluAnunturi text-white">@item.CreatedOn</div>
+            </div>
+        </div>
+       }
+      
+    </div>
+    <div class="col-md-5 ">
         @foreach (var item in Model.AnunturileCursului)
         {
             <div class="col-12">
@@ -35,7 +60,7 @@
                         <div class="col-1 float-right btnDelete">
                             @if (UserManager.GetUserAsync(User).Result.NumeUtilizator == item.Author)
                             {
-                                <a class="btnDelete" asp-action="DeleteAnnouncement" asp-route-id="@item.Id"> <i class="far fa-trash-alt" aria-hidden="true"></i></a>
+                                <a class="btnDelete" asp-action="DeleteAnnouncementCurs" asp-route-id="@item.Id" asp-route-CourseId="@Model.CourseId"> <i class="far fa-trash-alt" aria-hidden="true"></i></a>
 
                             }
                         </div>
@@ -61,7 +86,7 @@
     </div>
 
     <div class="col-md-2 pt-3 pb-4" >
-     
+        <h1>Istoric Prezente</h1>
         @foreach (var item in Model.CursurileCareSeTin)
         {
             <div class="row  ml-1 container" >

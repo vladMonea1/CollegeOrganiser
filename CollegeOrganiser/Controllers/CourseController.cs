@@ -1,10 +1,12 @@
 ﻿   using CollegeOrganiser.Data;
 using CollegeOrganiser.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
  
@@ -117,6 +119,8 @@ namespace CollegeOrganiser.Controllers
 
             model.AnunturileCursului = await _context.AnunturiCurs.Where(p => p.forCourseWithId == id).ToListAsync();
 
+            model.TemeleCursului = await  _context.FileCurs.Where(p => p.fileForCourseWithId == id).ToListAsync();
+
 
             return View(model);
         }
@@ -160,7 +164,6 @@ namespace CollegeOrganiser.Controllers
 
             return RedirectToAction("ViewCourseFeed", new { id = cursCurent.Id });
         }
-        //https://localhost:44343/Course/ViewCourseFeed/1013    
         [HttpGet]
         public IActionResult AnuntCursNou(int CourseId)
         {   
@@ -168,8 +171,7 @@ namespace CollegeOrganiser.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AnuntCursNou(DateTime CreatedOn,
-        string Title, string Description, int CourseId)
+        public async Task<IActionResult> AnuntCursNou(DateTime CreatedOn, string Title, string Description, int CourseId)
         {
 
             #region testing
@@ -198,5 +200,78 @@ namespace CollegeOrganiser.Controllers
         }
 
 
+
+        public async Task<IActionResult> DeleteAnnouncementCurs(int Id, int CourseId)
+        {
+
+            var postToDelete = _context.AnunturiCurs.FirstOrDefault(p => p.Id == Id);
+
+            if (_userManager.GetUserAsync(User).Result.NumeUtilizator == postToDelete.Author)
+            {
+                var anunt = _context.AnunturiCurs.Remove(postToDelete);
+
+                _context.SaveChanges();
+            }
+            return RedirectToAction("ViewCourseFeed", new { id = CourseId });
+        }
+
+
+        [HttpGet]
+        public IActionResult TemaCursNoua(int CourseId)
+        {
+            return View(CourseId);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> TemaCursNoua(List<IFormFile> files, string description, int CourseId)
+
+        {
+            foreach (var file in files)
+            {
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var extension = Path.GetExtension(file.FileName);
+                var fileModel = new FileModelCurs
+                {
+                    CreatedOn = DateTime.UtcNow,
+                    FileType = file.ContentType,
+                    Extension = extension,
+                    Name = fileName,
+                    Description = description,
+                    UploadedBy = _userManager.GetUserAsync(User).Result.NumeUtilizator,
+                    fileForCourseWithId = CourseId
+                    
+
+                };
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    fileModel.Data = dataStream.ToArray();
+                }
+                _context.FileCurs.Add(fileModel);
+                _context.SaveChanges();
+            }
+             
+           
+            return RedirectToAction("ViewCourseFeed", new { id = CourseId });
+        }
+
+        
+
+        public async Task<IActionResult> DownloadFileCurs(int id)
+        {
+            var file = await _context.FileCurs.Where(x => x.Id == id).FirstOrDefaultAsync();
+            if (file == null) return null;
+            return File(file.Data, file.FileType, file.Name + file.Extension);
+        }
+
+        public async Task<IActionResult> DeleteFileFromDatabase(int id, int CourseId)
+        {
+            var file = await _context.FileCurs.Where(x => x.Id == id).FirstOrDefaultAsync();
+            _context.FileCurs.Remove(file);
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewCourseFeed", new { id = CourseId });
+        }
     }
 }
