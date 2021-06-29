@@ -17,5 +17,7 @@ namespace CollegeOrganiser.Models
 
         public ApplicationUser User{ get; set; }
 
+       
+
     }
 }

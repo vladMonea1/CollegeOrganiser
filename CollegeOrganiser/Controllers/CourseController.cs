@@ -167,6 +167,7 @@ namespace CollegeOrganiser.Controllers
 
             return RedirectToAction("ViewCourseFeed", new { id = cursCurent.Id });
         }
+
         [HttpGet]
         public IActionResult AnuntCursNou(int CourseId)
         {
@@ -282,8 +283,8 @@ namespace CollegeOrganiser.Controllers
             List<EvidentaPrezenteModel> model = new List<EvidentaPrezenteModel>();
 
             var curs = _context.Courses.FirstOrDefault(c => c.Id == CourseId);
-            var ceva = _context.CoursesForUsers.Include(u => u.User).Where(z => z.CoursesAssigned == curs);
-            var useriLaCurs = ceva.Select(u => u.User);
+            var cursurileStudentului = _context.CoursesForUsers.Include(u => u.User).Where(z => z.CoursesAssigned == curs);
+            var useriLaCurs = cursurileStudentului.Select(u => u.User);
 
             var toateCursurileTinute = _context.CoursesHeld.Where(x => x.Course.Id == CourseId);
 
